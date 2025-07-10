@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3D IJsje Configurator</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+  <style>
+    body { margin: 0; }
+    canvas { display: block; }
+    #controls { position: absolute; top: 10px; left: 10px; }
+  </style>
+</head>
+<body>
+  <div id="controls">
+    <h1>Jonas VR ijsjes fabriek</h1>
+    <p>Duid bollen ijs aan om de smaak te veranderen.</p>
+    <br>
+    <label for="flavor">Smaak:</label>
+    <select id="flavor">
+      <option value="vanilla">Vanille</option>
+      <option value="chocolate">Chocolade</option>
+      <option value="strawberry">Aardbei</option>
+    </select>
+    <br>
+    <label for="toggleCherry">Topping:</label>
+    <input type="checkbox" id="toggleCherry" checked>
+    <br>
+    <div id="cherryOptions">
+      <label for="cherryChoice">Kies een topping:</label>
+      <select id="cherryChoice">
+        <option value="cherry">Kers</option>
+        <option value="chocolate">Chocolaatje</option>
+      </select>
+    </div><br>
+    <label for="toggleStraw">Rietje:</label>
+    <input type="checkbox" id="toggleStraw" checked>
+    <br>
+    <div id="strawOptions">
+      <label for="strawChoice">Kies een materiaal:</label>
+      <select id="strawChoice">
+        <option value="plastic">Plastic</option>
+        <option value="wood">Hout</option>
+      </select>
+    </div>
+  </div>
+  <script type="module">
+    import * as THREE from 'three';
+    import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+    import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color(0xffffff); // Stel de achtergrondkleur in op wit
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.body.appendChild(renderer.domElement);
+
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5); // Zacht licht
+    scene.add(ambientLight);
+
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 1); // Direct licht
+    directionalLight.position.set(5, 5, 5); // Plaats de lichtbron
+    scene.add(directionalLight);
+
+    let iceCream = null; // Globale variabele voor het ijsje
+
+    const loader = new GLTFLoader();
+    loader.load('./models/Sundae.glb', (gltf) => {
+      iceCream = gltf.scene; // Initialiseer iceCream
+      scene.add(iceCream);
+
+      // Kers slider logica
+      document.getElementById('toggleCherry').addEventListener('change', (event) => {
+        const showCherry = event.target.checked; // Controleer of de checkbox is aangevinkt
+
+        // Zoek naar de groep 'cherry'
+        const cherryGroup = iceCream.children.find((child) => child.name === 'cherry');
+        if (cherryGroup) {
+          cherryGroup.visible = showCherry; // Verberg of toon de hele groep
+          document.getElementById('cherryOptions').style.display = showCherry ? 'block' : 'none'; // Toon/verberg de dropdown
+          console.log(`Groep 'cherry' zichtbaar: ${cherryGroup.visible}`); // Log de zichtbaarheid van de groep
+        } else {
+          console.log('Groep "cherry" niet gevonden');
+        }
+      });
+
+      document.getElementById('toggleCherry').addEventListener('change', (event) => {
+        const showCherry = event.target.checked; // Controleer of de checkbox is aangevinkt
+        const cherryOptions = document.getElementById('cherryOptions');
+
+        if (showCherry) {
+          cherryOptions.classList.remove('disabled'); // Verwijder de disabled-stijl
+        } else {
+          cherryOptions.classList.add('disabled'); // Voeg de disabled-stijl toe
+        }
+      });
+
+      // Dropdown logica voor kers/chocolaatje
+      document.getElementById('cherryChoice').addEventListener('change', (event) => {
+        const choice = event.target.value; // Haal de keuze van de gebruiker op
+
+        // Zoek recursief naar de kers
+        const cherry = findChildByName(iceCream, 'cherry_1');
+        const cherryExtra = findChildByName(iceCream, 'cherry_1_1'); // Zoek naar het extra kers-object
+
+        if (cherry) {
+          if (choice === 'cherry') {
+            cherry.material.color.set(0xFF0000); // Maak de kers rood
+            console.log('Kers geselecteerd');
+            if (cherryExtra) {
+              cherryExtra.visible = true; // Maak het extra object zichtbaar
+              console.log('Extra kers zichtbaar gemaakt');
+            }
+          } else if (choice === 'chocolate') {
+            cherry.material.color.set(0x8B4513); // Maak de kers bruin
+            console.log('Chocolaatje geselecteerd');
+            if (cherryExtra) {
+              cherryExtra.visible = false; // Maak het extra object onzichtbaar
+              console.log('Extra kers onzichtbaar gemaakt');
+            }
+          }
+        } else {
+          console.log('Kers niet gevonden');
+        }
+      });
+
+      // Rietje slider logica
+      document.getElementById('toggleStraw').addEventListener('change', (event) => {
+        const showStraw = event.target.checked; // Controleer of de checkbox is aangevinkt
+
+        // Zoek naar de groep 'straw'
+        const strawGroup = iceCream.children.find((child) => child.name === 'straw');
+        if (strawGroup) {
+          strawGroup.visible = showStraw; // Verberg of toon de hele groep
+          document.getElementById('strawOptions').style.display = showStraw ? 'block' : 'none'; // Toon/verberg de dropdown
+          console.log(`Groep 'straw' zichtbaar: ${strawGroup.visible}`); // Log de zichtbaarheid van de groep
+        } else {
+          console.log('Groep "straw" niet gevonden');
+        }
+      });
+
+      document.getElementById('toggleStraw').addEventListener('change', (event) => {
+        const showStraw = event.target.checked; // Controleer of de checkbox is aangevinkt
+        const strawOptions = document.getElementById('strawOptions');
+
+        if (showStraw) {
+          strawOptions.classList.remove('disabled'); // Verwijder de disabled-stijl
+        } else {
+          strawOptions.classList.add('disabled'); // Voeg de disabled-stijl toe
+        }
+      });
+
+      // Dropdown logica voor rietje
+      document.getElementById('strawChoice').addEventListener('change', (event) => {
+        const choice = event.target.value; // Haal de keuze van de gebruiker op
+
+        // Zoek naar het rietje
+        const straw = findChildByName(iceCream, 'straw');
+        if (straw && straw.name === 'straw') { // Controleer expliciet of het object 'straw' is
+          const color = straw.material.color; // Haal de huidige kleur op
+          console.log(`Huidige kleur van het rietje: R=${color.r}, G=${color.g}, B=${color.b}`);
+          console.log(`Hexadecimale kleur van het rietje: #${color.getHexString()}`);
+
+          if (choice === 'plastic') {
+            straw.material.color.set('#2ca494'); // Maak het rietje groen (originele kleur)
+           
+          } else if (choice === 'wood') {
+            straw.material.color.set(0x8B4513); // Maak het rietje bruin (hout)
+            
+          }
+        } else {
+          console.log('Rietje niet gevonden of naam komt niet overeen');
+        }
+      });
+
+      console.log(iceCream.position); // Controleer de positie van het object
+      console.log(iceCream.scale); // Controleer de schaal van het object
+      console.log(iceCream.children); // Controleer de kinderen van het object
+
+      // Update parameters
+      document.getElementById('flavor').addEventListener('change', (event) => {
+        const flavor = event.target.value;
+        if (selectedObject && selectedObject.name !== 'topping') { // Controleer of het geen topping is
+          if (flavor === 'vanilla') selectedObject.material.color.set(0xFFFACD);
+          if (flavor === 'chocolate') selectedObject.material.color.set(0x8B4513);
+          if (flavor === 'strawberry') selectedObject.material.color.set(0xFF69B4);
+        }
+      });
+
+      camera.position.set(0, 1, -1); // Plaats de camera aan de andere kant van het ijsje
+      camera.lookAt(iceCream.position); // Laat de camera naar het ijsje kijken
+    });
+
+    const backgroundLoader = new GLTFLoader();
+    backgroundLoader.load('./models/Little Shop.glb', (gltf) => {
+      const background = gltf.scene; // Laad het GLB-model
+      background.scale.set(10, 10, 10); // Schaal het model groot genoeg
+      background.position.set(-0.7, 0.7, 0); // Plaats het model in het midden van de scène
+      scene.add(background); // Voeg het model toe aan de scène
+      console.log('Achtergrond geladen:', background);
+    });
+
+    function findChildByName(object, name) {
+      if (object.name === name) return object;
+      for (let child of object.children) {
+        const result = findChildByName(child, name);
+        if (result) return result;
+      }
+      return null;
+    }
+
+    const raycaster = new THREE.Raycaster();
+    const mouse = new THREE.Vector2();
+    let selectedObject = null;
+
+    window.addEventListener('click', (event) => {
+      mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+      mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+      raycaster.setFromCamera(mouse, camera);
+
+      const intersects = raycaster.intersectObjects(iceCream?.children || [], true);
+
+      if (intersects.length > 0) {
+        const clickedObject = intersects[0].object;
+
+        // Controleer of het object niet 'sundae_1' is
+        if (clickedObject.name === 'sundae_1') {
+          console.log('Het object "sundae_1" kan niet worden aangepast.');
+          return; // Blokkeer verdere acties
+        }
+
+        // Controleer of het object geen topping is
+        if (clickedObject.name !== 'topping') {
+          selectedObject = clickedObject; // Stel het geselecteerde object in
+          console.log('Geselecteerd object:', selectedObject);
+        } else {
+          console.log('Topping geselecteerd, geen actie uitgevoerd.');
+        }
+      }
+    });
+
+    camera.position.z = 1.5;
+
+    // Voeg OrbitControls toe
+    const controls = new OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true; // Zorg voor een soepelere beweging
+    controls.dampingFactor = 0.05; // Pas de demping aan
+
+    function animate() {
+      requestAnimationFrame(animate);
+      controls.update(); // Update de OrbitControls
+      renderer.render(scene, camera);
+    }
+    animate();
+  </script>
+</body>
+</html>
