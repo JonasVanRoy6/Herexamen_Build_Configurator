@@ -46,6 +46,7 @@
         <option value="wood">Hout</option>
       </select>
     </div>
+    <button id="placeOrder">Bestelling plaatsen</button>
   </div>
   <script type="module">
     import * as THREE from 'three';
@@ -159,18 +160,21 @@
         const choice = event.target.value; // Haal de keuze van de gebruiker op
 
         // Zoek naar het rietje
-        const straw = findChildByName(iceCream, 'straw');
-        if (straw && straw.name === 'straw') { // Controleer expliciet of het object 'straw' is
-          const color = straw.material.color; // Haal de huidige kleur op
-          console.log(`Huidige kleur van het rietje: R=${color.r}, G=${color.g}, B=${color.b}`);
-          console.log(`Hexadecimale kleur van het rietje: #${color.getHexString()}`);
+        const straw = findChildByName(iceCream, 'straw'); // Zoek expliciet naar het object met de naam 'straw'
+        if (straw && straw.name === 'straw') {
+          // Controleer of het rietje een uniek materiaal heeft, zo niet, maak een kopie
+          if (!straw.material.isUnique) {
+            straw.material = straw.material.clone(); // Maak een kopie van het materiaal
+            straw.material.isUnique = true; // Markeer het materiaal als uniek
+          }
 
+          // Pas de kleur aan op basis van de keuze
           if (choice === 'plastic') {
             straw.material.color.set('#2ca494'); // Maak het rietje groen (originele kleur)
-           
+            console.log('Plastic rietje geselecteerd');
           } else if (choice === 'wood') {
             straw.material.color.set(0x8B4513); // Maak het rietje bruin (hout)
-            
+            console.log('Houten rietje geselecteerd');
           }
         } else {
           console.log('Rietje niet gevonden of naam komt niet overeen');
@@ -241,6 +245,46 @@
         } else {
           console.log('Topping geselecteerd, geen actie uitgevoerd.');
         }
+      }
+    });
+
+    document.getElementById('placeOrder').addEventListener('click', async () => {
+      const flavor1Object = findChildByName(iceCream, 'sundae_1_1');
+      const flavor2Object = findChildByName(iceCream, 'sundae_1_2');
+
+      const flavor1 = flavor1Object?.material?.color?.getHexString() || 'onbekend';
+      const flavor2 = flavor2Object?.material?.color?.getHexString() || 'onbekend';
+
+      const topping = document.getElementById('cherryChoice').value;
+      const straw = document.getElementById('strawChoice').value;
+
+      const order = {
+        flavors: [
+          { name: 'sundae_1_1', color: `#${flavor1}` },
+          { name: 'sundae_1_2', color: `#${flavor2}` },
+        ],
+        topping,
+        straw,
+      };
+
+      console.log('Bestelling:', order); // Controleer de bestelling in de console
+
+      try {
+        const response = await fetch('http://localhost:5000/api/orders', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(order),
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          alert('Bestelling geplaatst: ' + JSON.stringify(data.order));
+        } else {
+          alert('Fout bij het plaatsen van de bestelling');
+        }
+      } catch (error) {
+        console.error('Fout:', error);
+        alert('Kan geen verbinding maken met de server');
       }
     });
 
