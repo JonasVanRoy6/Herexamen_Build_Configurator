@@ -9,15 +9,17 @@
     padding-bottom: 5em;
     padding-left: 2em;
     padding-right: 2em;
-
+    margin-top: 2%;
     position: absolute; /* Maak het element absoluut gepositioneerd */
      /* Plaats het element 50% vanaf de linkerkant van het scherm */
     transform: translate(0%, 10%); /* Centreer het element volledig */
+    overflow-y: hidden; /* Maak de inhoud van #controls scrollbaar */
+    max-height: 90vh; /* Beperk de hoogte van de inhoud tot 90% van het scherm */
 }
 
 body{
-    font-family: "Bebas Neue", sans-serif;
-    
+    font-family: "Poppins", sans-serif;
+    overflow: hidden; /* Verberg standaard scrollbars */
 }
 
 select {
@@ -27,7 +29,7 @@ select {
     padding: 5px; /* Voeg wat ruimte toe binnen de dropdown */
     font-family: "Bebas Neue", sans-serif; /* Gebruik hetzelfde lettertype als de rest */
     font-size: 16px; /* Stel de lettergrootte in */
-    color: #333; /* Tekstkleur */
+    color: black; /* Tekstkleur */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Voeg een subtiele schaduw toe */
     outline: none; /* Verwijder de standaard focusstijl */
     cursor: pointer; /* Verander de cursor naar een pointer */
@@ -45,8 +47,8 @@ select:focus {
 
 option {
     background-color: rgba(255, 255, 255, 0.8); /* Semi-transparante witte achtergrond */
-    color: #333; /* Tekstkleur */
-    font-family: "Bebas Neue", sans-serif; /* Gebruik hetzelfde lettertype */
+    color: black; /* Tekstkleur */
+    font-family: "Poppins", sans-serif; /* Gebruik hetzelfde lettertype */
     font-size: 16px; /* Stel de lettergrootte in */
 }
 
@@ -66,3 +68,162 @@ option {
 p{
     margin-top: -1.5em; /* Verklein de bovenmarge */
 }
+
+/* Zorg ervoor dat de canvas altijd op de achtergrond blijft */
+canvas {
+    position: fixed; /* Zorg ervoor dat de canvas altijd op de achtergrond blijft */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* Plaats de canvas achter de HTML-inhoud */
+}
+
+button {
+    font-family: "Poppins", sans-serif;
+    font-size: 0.8rem;
+    color: black;
+    background-color: transparent; /* Blauwe kleur */
+    border: 1px solid black; /* Lichte rand */
+    border-radius: 5px;
+    padding: 7.5px 15px;
+    margin: 10px 0; /* Ruimte tussen de knoppen */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 200px; /* Zorg ervoor dat alle knoppen dezelfde breedte hebben */
+    text-align: center;
+  }
+  /* Hover-effect voor de knoppen */
+  button:hover {
+    background-color: black;
+    color: white; /* Donkerdere blauwe kleur bij hover */
+  }
+
+/* Stijl voor transparante invulvelden met alleen een omranding */
+input, textarea, select {
+    background-color: transparent; /* Maak de achtergrond transparant */
+    border: 1px solid rgba(0, 0, 0, 0.5); /* Voeg een subtiele rand toe */
+    border-radius: 5px; /* Maak de hoeken afgerond */
+    
+    font-family: "Poppins", sans-serif; /* Gebruik hetzelfde lettertype */
+    font-size: 16px; /* Stel de lettergrootte in */
+    color: black; /* Tekstkleur */
+    outline: none; /* Verwijder de standaard focusstijl */
+    box-shadow: none; /* Verwijder eventuele standaard schaduwen */
+}
+
+/* Hover-effect voor invulvelden */
+input:hover, textarea:hover, select:hover {
+    border-color: rgba(0, 0, 0, 0.8); /* Maak de rand iets donkerder bij hover */
+}
+
+/* Focus-effect voor invulvelden */
+input:focus, textarea:focus, select:focus {
+    border-color: #007BFF; /* Maak de rand blauw bij focus */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Voeg een blauwe gloed toe bij focus */
+}
+
+/* Voeg ruimte toe tussen de invoervelden in de customer details */
+#customerDetails label {
+  
+    margin-bottom: 5px; /* Voeg wat ruimte onder de labels toe */
+}
+
+#customerDetails input {
+    margin-bottom: 10px; /* Voeg ruimte onder de invoervelden toe */
+}
+
+/* ICE CREAM LOADER */
+#loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 240, 245, 0.9);
+    display: flex;
+    justify-content: center; /* Centreer horizontaal */
+    align-items: center; /* Centreer verticaal */
+    z-index: 9999;
+    flex-direction: column; /* Zorg ervoor dat het ijsje en de tekst onder elkaar staan */
+    display: none;
+   
+}
+  
+  .icecream-loader {
+    position: relative;
+    width: 80px;
+    height: 160px;
+    animation: float 2s ease-in-out infinite;
+    margin: auto auto; /* Centreer horizontaal */
+}
+  
+  .icecream-loader .scoop {
+    width: 80px;
+    height: 80px;
+    background: pink;
+    border-radius: 50% 50% 40% 40%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    box-shadow: inset -5px -5px rgba(255, 255, 255, 0.3);
+  }
+  
+  .icecream-loader .cone {
+    width: 0;
+    height: 0;
+    border-left: 40px solid transparent;
+    border-right: 40px solid transparent;
+    border-top: 80px solid #d2a679;
+    position: absolute;
+    top: 80px;
+    left: 0;
+  }
+  
+  .icecream-loader .drip {
+    width: 12px;
+    height: 12px;
+    background: pink;
+    border-radius: 50%;
+    position: absolute;
+    top: 70px;
+    left: 34px;
+    animation: drip 1.5s infinite ease-in;
+  }
+  
+  @keyframes drip {
+    0% {
+      transform: translateY(0) scaleY(1);
+      opacity: 1;
+    }
+    70% {
+      transform: translateY(30px) scaleY(1.2);
+      opacity: 0.8;
+    }
+    100% {
+      transform: translateY(40px) scaleY(0.5);
+      opacity: 0;
+    }
+  }
+  
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+  
+  .loader-text {
+    margin-top: 20px; /* Ruimte tussen het ijsje en de tekst */
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 18px;
+    color: #d36b8c;
+    animation: blink 1.5s infinite;
+    text-align: center; /* Zorg ervoor dat de tekst gecentreerd is */
+    width: 100%; /* Zorg ervoor dat de tekst zich uitlijnt over de volledige breedte */
+}
+  
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+  

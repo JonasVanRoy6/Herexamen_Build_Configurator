@@ -7,11 +7,13 @@
   <link rel="stylesheet" href="style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
   <style>
     body { margin: 0; }
     canvas { display: block; }
     #controls { position: absolute; top: 10px; left: 10px; }
+   
   </style>
 </head>
 <body>
@@ -46,8 +48,30 @@
         <option value="wood">Hout</option>
       </select>
     </div>
-    <button id="placeOrder">Bestelling plaatsen</button>
+   
+  
+  <div id="customerDetails">
+    <h3>Klantgegevens</h3>
+    <label for="customerName">Naam:</label>
+    <input type="text" id="customerName" placeholder="Voer uw naam in" required>
+    <br>
+    <label for="street">Straat + Huisnummer:</label>
+    <input type="text" id="street" placeholder="Straat en huisnummer" required>
+    <br>
+    <label for="city">Gemeente:</label>
+    <input type="text" id="city" placeholder="Gemeente" required>
+  </div> <button id="placeOrder">Bestelling plaatsen</button></div>
+ <div id="loader" style="display: none;">
+  <div class="icecream-loader">
+    <div class="scoop"></div>
+    <div class="cone"></div>
+    <div class="drip"></div>
   </div>
+  <div class="loader-text">Bestelling wordt verwerkt...</div>
+</div>
+  
+  <p>Bestelling wordt verwerkt...</p>
+</div>
   <script type="module">
     import * as THREE from 'three';
     import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
@@ -258,6 +282,17 @@
       const topping = document.getElementById('cherryChoice').value;
       const straw = document.getElementById('strawChoice').value;
 
+      // Haal klantgegevens op
+      const customerName = document.getElementById('customerName').value;
+      const street = document.getElementById('street').value;
+      const city = document.getElementById('city').value;
+
+      // Controleer of alle velden zijn ingevuld
+      if (!customerName || !street || !city) {
+        alert('Vul alle klantgegevens in.');
+        return;
+      }
+
       const order = {
         flavors: [
           { name: 'sundae_1_1', color: `#${flavor1}` },
@@ -265,27 +300,44 @@
         ],
         topping,
         straw,
+        customer: {
+          name: customerName,
+          address: {
+            street,
+            city,
+          },
+        },
       };
 
-      console.log('Bestelling:', order); // Controleer de bestelling in de console
+      console.log('Bestelling die naar de server wordt gestuurd:', order); // Debugging
 
-      try {
-        const response = await fetch('http://localhost:5000/api/orders', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(order),
-        });
+      // Toon de loader
+      const loader = document.getElementById('loader');
+      loader.style.display = 'block';
 
-        if (response.ok) {
-          const data = await response.json();
-          alert('Bestelling geplaatst: ' + JSON.stringify(data.order));
-        } else {
-          alert('Fout bij het plaatsen van de bestelling');
+      // Wacht 3 seconden
+      setTimeout(async () => {
+        try {
+          const response = await fetch('http://localhost:5000/api/orders', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(order),
+          });
+
+          if (response.ok) {
+            const data = await response.json();
+            loader.style.display = 'none'; // Verberg de loader
+            alert('Bestelling gelukt!'); // Toon de pop-up
+          } else {
+            loader.style.display = 'none'; // Verberg de loader
+            alert('Fout bij het plaatsen van de bestelling');
+          }
+        } catch (error) {
+          loader.style.display = 'none'; // Verberg de loader
+          console.error('Fout:', error);
+          alert('Kan geen verbinding maken met de server');
         }
-      } catch (error) {
-        console.error('Fout:', error);
-        alert('Kan geen verbinding maken met de server');
-      }
+      }, 3000); // Wacht 3 seconden voordat de bestelling wordt verwerkt
     });
 
     camera.position.z = 1.5;
