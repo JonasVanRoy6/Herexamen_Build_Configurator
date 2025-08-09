@@ -28,7 +28,7 @@
       <option value="strawberry">Aardbei</option>
     </select>
     <br>
-    <label for="toggleCherry">Topping:</label>
+    <label for="toggleCherry">Topping (+1 euro):</label>
     <input type="checkbox" id="toggleCherry" checked>
     <br>
     <div id="cherryOptions">
@@ -60,7 +60,7 @@
     <br>
     <label for="city">Gemeente:</label>
     <input type="text" id="city" placeholder="Gemeente" required>
-  </div> <button id="placeOrder">Bestelling plaatsen</button></div>
+  </div> <button id="placeOrder">Bestelling plaatsen (€3)</button></div>
  <div id="loader" style="display: none;">
   <div class="icecream-loader">
     <div class="scoop"></div>
@@ -272,6 +272,24 @@
       }
     });
 
+    // Variabele om de basisprijs en de extra kosten bij te houden
+    let basePrice = 3; // Basisprijs van het ijsje
+    let extraPrice = 1; // Extra kosten voor de topping
+
+    // Functie om de prijs dynamisch te berekenen en weer te geven
+    function updatePrice() {
+      const toppingChecked = document.getElementById('toggleCherry').checked;
+      const totalPrice = toppingChecked ? basePrice + extraPrice : basePrice;
+      document.getElementById('placeOrder').textContent = `Bestelling plaatsen (€${totalPrice})`;
+    }
+
+    // Event listener om de prijs bij te werken wanneer de topping wordt aangevinkt
+    document.getElementById('toggleCherry').addEventListener('change', updatePrice);
+
+    // Initialiseer de prijs bij het laden van de pagina
+    updatePrice();
+
+    // Pas de `placeOrder`-functie aan
     document.getElementById('placeOrder').addEventListener('click', async () => {
       const flavor1Object = findChildByName(iceCream, 'sundae_1_1');
       const flavor2Object = findChildByName(iceCream, 'sundae_1_2');
@@ -279,7 +297,9 @@
       const flavor1 = flavor1Object?.material?.color?.getHexString() || 'onbekend';
       const flavor2 = flavor2Object?.material?.color?.getHexString() || 'onbekend';
 
-      const topping = document.getElementById('cherryChoice').value;
+      const toppingChecked = document.getElementById('toggleCherry').checked;
+      const topping = toppingChecked ? document.getElementById('cherryChoice').value : ""; // Stel topping in op "" als de checkbox uitstaat
+
       const straw = document.getElementById('strawChoice').value;
 
       // Haal klantgegevens op
@@ -293,12 +313,17 @@
         return;
       }
 
+      // Bereken de totale prijs
+      const basePrice = 3;
+      const extraPrice = 1;
+      const totalPrice = toppingChecked ? basePrice + extraPrice : basePrice;
+
       const order = {
         flavors: [
           { name: 'sundae_1_1', color: `#${flavor1}` },
           { name: 'sundae_1_2', color: `#${flavor2}` },
         ],
-        topping,
+        topping, // Voeg de topping toe
         straw,
         customer: {
           name: customerName,
@@ -307,6 +332,7 @@
             city,
           },
         },
+        price: totalPrice, // Voeg de totale prijs toe
       };
 
       console.log('Bestelling die naar de server wordt gestuurd:', order); // Debugging
