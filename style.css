@@ -9,7 +9,7 @@
     padding-bottom: 5em;
     padding-left: 2em;
     padding-right: 2em;
-    margin-top: 2%;
+    margin-top: -13%;
     position: absolute; /* Maak het element absoluut gepositioneerd */
      /* Plaats het element 50% vanaf de linkerkant van het scherm */
     transform: translate(0%, 10%); /* Centreer het element volledig */
@@ -19,7 +19,8 @@
 
 body{
     font-family: "Poppins", sans-serif;
-    overflow: hidden; /* Verberg standaard scrollbars */
+    overflow: hidden;
+    /* Verberg standaard scrollbars */
 }
 
 select {
@@ -29,7 +30,7 @@ select {
     padding: 5px; /* Voeg wat ruimte toe binnen de dropdown */
     font-family: "Bebas Neue", sans-serif; /* Gebruik hetzelfde lettertype als de rest */
     font-size: 16px; /* Stel de lettergrootte in */
-    color: black; /* Tekstkleur */
+    color: #ff69b4; /* Tekstkleur */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Voeg een subtiele schaduw toe */
     outline: none; /* Verwijder de standaard focusstijl */
     cursor: pointer; /* Verander de cursor naar een pointer */
@@ -47,7 +48,7 @@ select:focus {
 
 option {
     background-color: rgba(255, 255, 255, 0.8); /* Semi-transparante witte achtergrond */
-    color: black; /* Tekstkleur */
+    color: #ff69b4; /* Tekstkleur */
     font-family: "Poppins", sans-serif; /* Gebruik hetzelfde lettertype */
     font-size: 16px; /* Stel de lettergrootte in */
 }
@@ -66,9 +67,15 @@ option {
 }
 
 p{
-    margin-top: -1.5em; /* Verklein de bovenmarge */
+    margin-top: -1.5em;
+    color: #ff69b4; /* Verklein de bovenmarge */
 }
-
+h1{
+  color: #ff69b4;
+}
+h3{
+  color: #ff69b4;
+}
 /* Zorg ervoor dat de canvas altijd op de achtergrond blijft */
 canvas {
     position: fixed; /* Zorg ervoor dat de canvas altijd op de achtergrond blijft */
@@ -82,9 +89,9 @@ canvas {
 button {
     font-family: "Poppins", sans-serif;
     font-size: 0.8rem;
-    color: black;
-    background-color: transparent; /* Blauwe kleur */
-    border: 1px solid black; /* Lichte rand */
+    color: white;
+    background-color: #ff69b4; /* Blauwe kleur */
+    border: 1px solid #ff69b4; /* Lichte rand */
     border-radius: 5px;
     padding: 7.5px 15px;
     margin: 10px 0; /* Ruimte tussen de knoppen */
@@ -95,19 +102,24 @@ button {
   }
   /* Hover-effect voor de knoppen */
   button:hover {
-    background-color: black;
-    color: white; /* Donkerdere blauwe kleur bij hover */
+    background-color: white;
+    color: #ff69b4; /* Donkerdere blauwe kleur bij hover */
+  }
+
+  #toggleStraw{
+    background-color: #ff69b4;
+    color: #ff69b4;
   }
 
 /* Stijl voor transparante invulvelden met alleen een omranding */
 input, textarea, select {
     background-color: transparent; /* Maak de achtergrond transparant */
-    border: 1px solid rgba(0, 0, 0, 0.5); /* Voeg een subtiele rand toe */
+    border: 1px solid #ff69b4; /* Voeg een subtiele rand toe */
     border-radius: 5px; /* Maak de hoeken afgerond */
     
     font-family: "Poppins", sans-serif; /* Gebruik hetzelfde lettertype */
     font-size: 16px; /* Stel de lettergrootte in */
-    color: black; /* Tekstkleur */
+    color: #ff69b4; /* Tekstkleur */
     outline: none; /* Verwijder de standaard focusstijl */
     box-shadow: none; /* Verwijder eventuele standaard schaduwen */
 }
@@ -125,12 +137,13 @@ input:focus, textarea:focus, select:focus {
 
 /* Voeg ruimte toe tussen de invoervelden in de customer details */
 #customerDetails label {
-  
+    
     margin-bottom: 5px; /* Voeg wat ruimte onder de labels toe */
 }
 
 #customerDetails input {
-    margin-bottom: 10px; /* Voeg ruimte onder de invoervelden toe */
+    margin-bottom: 10px;
+    color: #ff69b4; /* Voeg ruimte onder de invoervelden toe */
 }
 
 /* ICE CREAM LOADER */
