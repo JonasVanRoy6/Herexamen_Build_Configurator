@@ -78,12 +78,12 @@ h3{
 }
 /* Zorg ervoor dat de canvas altijd op de achtergrond blijft */
 canvas {
-    position: fixed; /* Zorg ervoor dat de canvas altijd op de achtergrond blijft */
+    position: fixed; /* Zorg ervoor dat het canvas altijd op de achtergrond blijft */
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1; /* Plaats de canvas achter de HTML-inhoud */
+    width: 100vw; /* Zorg ervoor dat het canvas de volledige breedte van het scherm inneemt */
+    height: 100vh; /* Zorg ervoor dat het canvas de volledige hoogte van het scherm inneemt */
+    z-index: -1; /* Plaats het canvas achter de HTML-inhoud */
 }
 
 button {
@@ -107,8 +107,7 @@ button {
   }
 
   #toggleStraw{
-    background-color: #ff69b4;
-    color: #ff69b4;
+    display: none;
   }
 
 /* Stijl voor transparante invulvelden met alleen een omranding */
@@ -239,4 +238,137 @@ input:focus, textarea:focus, select:focus {
     0%, 100% { opacity: 1; }
     50% { opacity: 0.4; }
   }
-  
+
+/* Voor kleine schermen (mobiel) */
+@media (max-width: 768px) {
+  #controls {
+    width: 90%; /* Maak de controls breder */
+    padding: 1em; /* Verminder de padding */
+    margin: 0 auto; /* Centreer de controls */
+    transform: translate(0%, 0%); /* Verwijder eventuele offset */
+    max-height: 80vh; /* Beperk de hoogte tot 80% van het scherm */
+    overflow-y: auto; /* Sta scrollen toe binnen de controls */
+    display: flex;
+    flex-direction: column; /* Plaats de inhoud onder elkaar */
+    align-items: center; /* Centreer de inhoud horizontaal */
+  }
+
+  h1, h3 {
+    font-size: 1.2rem; /* Verklein de kopteksten */
+    text-align: center; /* Centreer de tekst */
+  }
+
+  p {
+    font-size: 0.9rem; /* Verklein de paragrafen */
+    margin-top: 0.5em; /* Voeg ruimte toe tussen paragrafen */
+    text-align: center; /* Centreer de tekst */
+  }
+
+  button {
+    width: 100%; /* Maak knoppen breder op kleine schermen */
+    font-size: 0.7rem; /* Verklein de tekstgrootte */
+    margin-bottom: 10px; /* Voeg ruimte toe tussen knoppen */
+  }
+
+  select, input, textarea {
+    font-size: 0.8rem; /* Verklein de tekstgrootte */
+    padding: 5px; /* Verminder de padding */
+    width: 100%; /* Maak invoervelden breder */
+    margin-bottom: 10px; /* Voeg ruimte toe tussen invoervelden */
+  }
+
+  .loader-text {
+    font-size: 0.9rem; /* Verklein de tekstgrootte van de loader */
+    text-align: center; /* Centreer de tekst */
+  }
+
+  .icecream-loader {
+    width: 50px; /* Verklein de loader */
+    height: 100px;
+  }
+
+  .icecream-loader .scoop {
+    width: 50px;
+    height: 50px;
+  }
+
+  .icecream-loader .cone {
+    border-left: 25px solid transparent;
+    border-right: 25px solid transparent;
+    border-top: 50px solid #d2a679;
+  }
+
+  .icecream-loader .drip {
+    width: 6px;
+    height: 6px;
+    top: 40px;
+    left: 20px;
+  }
+}
+
+/* Voor middelgrote schermen (tablet) */
+@media (max-width: 1024px) {
+  #controls {
+    width: 25%; /* Maak de controls breder dan op mobiel */
+    padding: 2em; /* Verminder de padding */
+    margin: 0 auto; /* Centreer de controls */
+    transform: translate(0%, 5%); /* Pas de offset aan */
+    max-height: 85vh; /* Beperk de hoogte tot 85% van het scherm */
+    overflow-y: auto; /* Sta scrollen toe binnen de controls */
+    display: flex;
+    flex-direction: column; /* Plaats de inhoud onder elkaar */
+    align-items: center; /* Centreer de inhoud horizontaal */
+  }
+
+  h1, h3 {
+    font-size: 1.5rem; /* Pas de kopteksten aan */
+    text-align: center; /* Centreer de tekst */
+  }
+
+  p {
+    font-size: 1rem; /* Pas de paragrafen aan */
+    margin-top: 0.5em; /* Voeg ruimte toe tussen paragrafen */
+    text-align: center; /* Centreer de tekst */
+  }
+
+  button {
+    width: 80%; /* Maak knoppen breder op middelgrote schermen */
+    font-size: 0.8rem; /* Pas de tekstgrootte aan */
+    margin-bottom: 15px; /* Voeg ruimte toe tussen knoppen */
+  }
+
+  select, input, textarea {
+    font-size: 0.9rem; /* Pas de tekstgrootte aan */
+    padding: 6px; /* Pas de padding aan */
+    width: 80%; /* Maak invoervelden breder */
+    margin-bottom: 15px; /* Voeg ruimte toe tussen invoervelden */
+  }
+
+  .loader-text {
+    font-size: 1rem; /* Pas de tekstgrootte van de loader aan */
+    text-align: center; /* Centreer de tekst */
+  }
+
+  .icecream-loader {
+    width: 60px; /* Pas de grootte van de loader aan */
+    height: 120px;
+  }
+
+  .icecream-loader .scoop {
+    width: 60px;
+    height: 60px;
+  }
+
+  .icecream-loader .cone {
+    border-left: 30px solid transparent;
+    border-right: 30px solid transparent;
+    border-top: 60px solid #d2a679;
+  }
+
+  .icecream-loader .drip {
+    width: 8px;
+    height: 8px;
+    top: 50px;
+    left: 25px;
+  }
+}

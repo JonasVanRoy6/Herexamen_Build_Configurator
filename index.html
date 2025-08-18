@@ -373,6 +373,18 @@
     controls.enableDamping = true; // Zorg voor een soepelere beweging
     controls.dampingFactor = 0.05; // Pas de demping aan
 
+    window.addEventListener('resize', () => {
+      // Pas de grootte van het canvas aan
+      renderer.setSize(window.innerWidth, window.innerHeight);
+
+      // Update de aspect ratio van de camera
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+
+      // Zorg ervoor dat de camera naar het ijsje blijft kijken
+      camera.lookAt(iceCream.position);
+    });
+
     function animate() {
       requestAnimationFrame(animate);
       controls.update(); // Update de OrbitControls
