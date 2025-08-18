@@ -1,74 +1,73 @@
 #controls {
-    background-color: rgba(255, 255, 255, 0.2); /* Semi-transparante witte achtergrond */
-    backdrop-filter: blur(10px); /* Voeg een wazig effect toe */
-    -webkit-backdrop-filter: blur(10px); /* Voor ondersteuning in Safari */
-    padding: 10px; /* Voeg wat ruimte toe binnen de container */
-    border-radius: 10px; /* Maak de hoeken afgerond */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Voeg een subtiele schaduw toe */
+    background-color: rgba(255, 255, 255, 0.2); 
+    backdrop-filter: blur(10px); 
+    -webkit-backdrop-filter: blur(10px); 
+    padding: 10px; 
+    border-radius: 10px; 
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
     padding-top: 5em;
     padding-bottom: 5em;
     padding-left: 2em;
     padding-right: 2em;
-    margin-top: -13%;
-    position: absolute; /* Maak het element absoluut gepositioneerd */
-     /* Plaats het element 50% vanaf de linkerkant van het scherm */
-    transform: translate(0%, 10%); /* Centreer het element volledig */
-    overflow-y: hidden; /* Maak de inhoud van #controls scrollbaar */
-    max-height: 90vh; /* Beperk de hoogte van de inhoud tot 90% van het scherm */
+ 
+    position: absolute; 
+   
+    overflow-y: hidden; 
+    max-height: 90vh; 
 }
 
 body{
     font-family: "Poppins", sans-serif;
     overflow: hidden;
-    /* Verberg standaard scrollbars */
+   
 }
 
 select {
-    background-color: rgba(255, 255, 255, 0.8); /* Semi-transparante witte achtergrond */
-    border: 1px solid rgba(0, 0, 0, 0.2); /* Subtiele rand */
-    border-radius: 5px; /* Maak de hoeken afgerond */
-    padding: 5px; /* Voeg wat ruimte toe binnen de dropdown */
-    font-family: "Bebas Neue", sans-serif; /* Gebruik hetzelfde lettertype als de rest */
-    font-size: 16px; /* Stel de lettergrootte in */
-    color: #ff69b4; /* Tekstkleur */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Voeg een subtiele schaduw toe */
-    outline: none; /* Verwijder de standaard focusstijl */
-    cursor: pointer; /* Verander de cursor naar een pointer */
+    background-color: rgba(255, 255, 255, 0.8); 
+    border: 1px solid rgba(0, 0, 0, 0.2); 
+    border-radius: 5px; 
+    padding: 5px; 
+    font-family: "Bebas Neue", sans-serif; 
+    font-size: 16px; 
+    color: #ff69b4; 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+    outline: none;
+    cursor: pointer; 
 }
 
 select:hover {
-    background-color: rgba(255, 255, 255, 1); /* Maak de achtergrond volledig wit bij hover */
-    border-color: rgba(0, 0, 0, 0.4); /* Maak de rand iets donkerder bij hover */
+    background-color: rgba(255, 255, 255, 1); 
+    border-color: rgba(0, 0, 0, 0.4); 
 }
 
 select:focus {
-    border-color: #007BFF; /* Maak de rand blauw bij focus */
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Voeg een blauwe gloed toe bij focus */
+    border-color: #007BFF; 
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
 
 option {
-    background-color: rgba(255, 255, 255, 0.8); /* Semi-transparante witte achtergrond */
-    color: #ff69b4; /* Tekstkleur */
-    font-family: "Poppins", sans-serif; /* Gebruik hetzelfde lettertype */
-    font-size: 16px; /* Stel de lettergrootte in */
+    background-color: rgba(255, 255, 255, 0.8); 
+    color: #ff69b4; 
+    font-family: "Poppins", sans-serif; 
+    font-size: 16px; 
 }
 
 #cherryOptions,
 #strawOptions {
-    visibility: visible; /* Zorg ervoor dat de elementen altijd zichtbaar zijn */
-    opacity: 1; /* Zorg ervoor dat ze volledig zichtbaar zijn */
-    transition: opacity 0.3s ease; /* Voeg een overgang toe voor een soepel effect */
+    visibility: visible;
+    opacity: 1; 
+    transition: opacity 0.3s ease; 
 }
 
 #cherryOptions.disabled,
 #strawOptions.disabled {
-    opacity: 0.5; /* Maak de dropdowns half transparant */
-    pointer-events: none; /* Maak ze niet klikbaar */
+    opacity: 0.5; 
+    pointer-events: none; 
 }
 
 p{
     margin-top: -1.5em;
-    color: #ff69b4; /* Verklein de bovenmarge */
+    color: #ff69b4; 
 }
 h1{
   color: #ff69b4;
@@ -76,54 +75,54 @@ h1{
 h3{
   color: #ff69b4;
 }
-/* Zorg ervoor dat de canvas altijd op de achtergrond blijft */
+
 canvas {
-    position: fixed; /* Zorg ervoor dat het canvas altijd op de achtergrond blijft */
+    position: fixed; 
     top: 0;
     left: 0;
-    width: 100vw; /* Zorg ervoor dat het canvas de volledige breedte van het scherm inneemt */
-    height: 100vh; /* Zorg ervoor dat het canvas de volledige hoogte van het scherm inneemt */
-    z-index: -1; /* Plaats het canvas achter de HTML-inhoud */
+    width: 100vw; 
+    height: 100vh; 
+    z-index: -1; 
 }
 
 button {
     font-family: "Poppins", sans-serif;
     font-size: 0.8rem;
     color: white;
-    background-color: #ff69b4; /* Blauwe kleur */
-    border: 1px solid #ff69b4; /* Lichte rand */
+    background-color: #ff69b4; 
+    border: 1px solid #ff69b4;
     border-radius: 5px;
     padding: 7.5px 15px;
-    margin: 10px 0; /* Ruimte tussen de knoppen */
+    margin: 10px 0; 
     cursor: pointer;
     transition: background-color 0.3s ease;
-    width: 200px; /* Zorg ervoor dat alle knoppen dezelfde breedte hebben */
+    width: 200px; 
     text-align: center;
   }
-  /* Hover-effect voor de knoppen */
+  
   button:hover {
     background-color: white;
-    color: #ff69b4; /* Donkerdere blauwe kleur bij hover */
+    color: #ff69b4;
   }
 
   #toggleStraw{
     display: none;
   }
 
-/* Stijl voor transparante invulvelden met alleen een omranding */
+
 input, textarea, select {
-    background-color: transparent; /* Maak de achtergrond transparant */
-    border: 1px solid #ff69b4; /* Voeg een subtiele rand toe */
-    border-radius: 5px; /* Maak de hoeken afgerond */
+    background-color: transparent; 
+    border: 1px solid #ff69b4; 
+    border-radius: 5px; 
     
-    font-family: "Poppins", sans-serif; /* Gebruik hetzelfde lettertype */
-    font-size: 16px; /* Stel de lettergrootte in */
-    color: #ff69b4; /* Tekstkleur */
-    outline: none; /* Verwijder de standaard focusstijl */
-    box-shadow: none; /* Verwijder eventuele standaard schaduwen */
+    font-family: "Poppins", sans-serif; 
+    font-size: 16px; 
+    color: #ff69b4;
+    outline: none; 
+    box-shadow: none;
 }
 
-/* Hover-effect voor invulvelden */
+
 input:hover, textarea:hover, select:hover {
     border-color: rgba(0, 0, 0, 0.8); /* Maak de rand iets donkerder bij hover */
 }
@@ -370,5 +369,19 @@ input:focus, textarea:focus, select:focus {
     height: 8px;
     top: 50px;
     left: 25px;
+  }
+}
+
+/* Voor 720p schermen */
+@media (max-width: 1280px) and (max-height: 720px) {
+  #controls {
+    margin-top: -7%; /* Gebruik een negatieve margin-top voor 720p schermen */
+  }
+}
+
+/* Voor hogere resoluties */
+@media (min-width: 1281px) {
+  #controls {
+    margin-top: 0; /* Geen negatieve margin-top voor hogere resoluties */
   }
 }
