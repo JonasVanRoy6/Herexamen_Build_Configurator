@@ -10,7 +10,7 @@
     padding-left: 2em;
     padding-right: 2em;
  
-    position: relative; 
+    position: absolute; 
    
     overflow-y: hidden; 
     max-height: 90vh; 
