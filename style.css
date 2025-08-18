@@ -380,7 +380,7 @@ input:focus, textarea:focus, select:focus {
 }
 
 /* Voor hogere resoluties */
-@media (min-width: 1281px) {
+@media (min-width: 1500px) {
   #controls {
     margin-top: 0; /* Geen negatieve margin-top voor hogere resoluties */
   }
