@@ -84,14 +84,14 @@
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(renderer.domElement);
 
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5); // Zacht licht
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5); 
     scene.add(ambientLight);
 
-    const directionalLight = new THREE.DirectionalLight(0xffffff, 1); // Direct licht
-    directionalLight.position.set(5, 5, 5); // Plaats de lichtbron
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 1); 
+    directionalLight.position.set(5, 5, 5); 
     scene.add(directionalLight);
 
-    let iceCream = null; // Globale variabele voor het ijsje
+    let iceCream = null; 
 
     const loader = new GLTFLoader();
     loader.load('./models/Sundae.glb', (gltf) => {
@@ -130,21 +130,21 @@
 
         // Zoek recursief naar de kers
         const cherry = findChildByName(iceCream, 'cherry_1');
-        const cherryExtra = findChildByName(iceCream, 'cherry_1_1'); // Zoek naar het extra kers-object
+        const cherryExtra = findChildByName(iceCream, 'cherry_1_1'); 
 
         if (cherry) {
           if (choice === 'cherry') {
-            cherry.material.color.set(0xFF0000); // Maak de kers rood
+            cherry.material.color.set(0xFF0000); 
             console.log('Kers geselecteerd');
             if (cherryExtra) {
               cherryExtra.visible = true; // Maak het extra object zichtbaar
               console.log('Extra kers zichtbaar gemaakt');
             }
           } else if (choice === 'chocolate') {
-            cherry.material.color.set(0x8B4513); // Maak de kers bruin
+            cherry.material.color.set(0x8B4513); 
             console.log('Chocolaatje geselecteerd');
             if (cherryExtra) {
-              cherryExtra.visible = false; // Maak het extra object onzichtbaar
+              cherryExtra.visible = false; 
               console.log('Extra kers onzichtbaar gemaakt');
             }
           }
@@ -181,23 +181,23 @@
 
       // Dropdown logica voor rietje
       document.getElementById('strawChoice').addEventListener('change', (event) => {
-        const choice = event.target.value; // Haal de keuze van de gebruiker op
+        const choice = event.target.value; 
 
         // Zoek naar het rietje
-        const straw = findChildByName(iceCream, 'straw'); // Zoek expliciet naar het object met de naam 'straw'
+        const straw = findChildByName(iceCream, 'straw'); 
         if (straw && straw.name === 'straw') {
           // Controleer of het rietje een uniek materiaal heeft, zo niet, maak een kopie
           if (!straw.material.isUnique) {
-            straw.material = straw.material.clone(); // Maak een kopie van het materiaal
-            straw.material.isUnique = true; // Markeer het materiaal als uniek
+            straw.material = straw.material.clone(); 
+            straw.material.isUnique = true;
           }
 
-          // Pas de kleur aan op basis van de keuze
+         
           if (choice === 'plastic') {
-            straw.material.color.set('#2ca494'); // Maak het rietje groen (originele kleur)
+            straw.material.color.set('#2ca494'); 
             console.log('Plastic rietje geselecteerd');
           } else if (choice === 'wood') {
-            straw.material.color.set(0x8B4513); // Maak het rietje bruin (hout)
+            straw.material.color.set(0x8B4513);
             console.log('Houten rietje geselecteerd');
           }
         } else {
@@ -205,9 +205,9 @@
         }
       });
 
-      console.log(iceCream.position); // Controleer de positie van het object
-      console.log(iceCream.scale); // Controleer de schaal van het object
-      console.log(iceCream.children); // Controleer de kinderen van het object
+      console.log(iceCream.position); 
+      console.log(iceCream.scale); 
+      console.log(iceCream.children); 
 
       // Update parameters
       document.getElementById('flavor').addEventListener('change', (event) => {
@@ -219,16 +219,16 @@
         }
       });
 
-      camera.position.set(0, 1, -1); // Plaats de camera aan de andere kant van het ijsje
-      camera.lookAt(iceCream.position); // Laat de camera naar het ijsje kijken
+      camera.position.set(0, 1, -1); 
+      camera.lookAt(iceCream.position); 
     });
 
     const backgroundLoader = new GLTFLoader();
     backgroundLoader.load('./models/Little Shop.glb', (gltf) => {
       const background = gltf.scene; // Laad het GLB-model
-      background.scale.set(10, 10, 10); // Schaal het model groot genoeg
-      background.position.set(-0.7, 0.7, 0); // Plaats het model in het midden van de scène
-      scene.add(background); // Voeg het model toe aan de scène
+      background.scale.set(10, 10, 10); 
+      background.position.set(-0.7, 0.7, 0);
+      scene.add(background); 
       console.log('Achtergrond geladen:', background);
     });
 
@@ -259,12 +259,12 @@
         // Controleer of het object niet 'sundae_1' is
         if (clickedObject.name === 'sundae_1') {
           console.log('Het object "sundae_1" kan niet worden aangepast.');
-          return; // Blokkeer verdere acties
+          return; 
         }
 
         // Controleer of het object geen topping is
         if (clickedObject.name !== 'topping') {
-          selectedObject = clickedObject; // Stel het geselecteerde object in
+          selectedObject = clickedObject; 
           console.log('Geselecteerd object:', selectedObject);
         } else {
           console.log('Topping geselecteerd, geen actie uitgevoerd.');
@@ -273,8 +273,8 @@
     });
 
     // Variabele om de basisprijs en de extra kosten bij te houden
-    let basePrice = 3; // Basisprijs van het ijsje
-    let extraPrice = 1; // Extra kosten voor de topping
+    let basePrice = 3; 
+    let extraPrice = 1; 
 
     // Functie om de prijs dynamisch te berekenen en weer te geven
     function updatePrice() {
@@ -352,8 +352,8 @@
 
           if (response.ok) {
             const data = await response.json();
-            loader.style.display = 'none'; // Verberg de loader
-            alert('Bestelling gelukt!'); // Toon de pop-up
+            loader.style.display = 'none'; 
+            alert('Bestelling gelukt!'); 
           } else {
             loader.style.display = 'none'; // Verberg de loader
             alert('Fout bij het plaatsen van de bestelling');
@@ -363,7 +363,7 @@
           console.error('Fout:', error);
           alert('Kan geen verbinding maken met de server');
         }
-      }, 3000); // Wacht 3 seconden voordat de bestelling wordt verwerkt
+      }, 3000); 
     });
 
     camera.position.z = 1.5;

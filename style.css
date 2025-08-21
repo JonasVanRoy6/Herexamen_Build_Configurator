@@ -124,27 +124,27 @@ input, textarea, select {
 
 
 input:hover, textarea:hover, select:hover {
-    border-color: rgba(0, 0, 0, 0.8); /* Maak de rand iets donkerder bij hover */
+    border-color: rgba(0, 0, 0, 0.8); 
 }
 
-/* Focus-effect voor invulvelden */
+
 input:focus, textarea:focus, select:focus {
-    border-color: #007BFF; /* Maak de rand blauw bij focus */
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Voeg een blauwe gloed toe bij focus */
+    border-color: #007BFF; 
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); 
 }
 
-/* Voeg ruimte toe tussen de invoervelden in de customer details */
+
 #customerDetails label {
     
-    margin-bottom: 5px; /* Voeg wat ruimte onder de labels toe */
+    margin-bottom: 5px; 
 }
 
 #customerDetails input {
     margin-bottom: 10px;
-    color: #ff69b4; /* Voeg ruimte onder de invoervelden toe */
+    color: #ff69b4; 
 }
 
-/* ICE CREAM LOADER */
+
 #loader {
     position: fixed;
     top: 0;
@@ -156,7 +156,7 @@ input:focus, textarea:focus, select:focus {
     justify-content: center; /* Centreer horizontaal */
     align-items: center; /* Centreer verticaal */
     z-index: 9999;
-    flex-direction: column; /* Zorg ervoor dat het ijsje en de tekst onder elkaar staan */
+    flex-direction: column; 
     display: none;
    
 }
@@ -166,7 +166,7 @@ input:focus, textarea:focus, select:focus {
     width: 80px;
     height: 160px;
     animation: float 2s ease-in-out infinite;
-    margin: auto auto; /* Centreer horizontaal */
+    margin: auto auto; 
 }
   
   .icecream-loader .scoop {
@@ -223,14 +223,14 @@ input:focus, textarea:focus, select:focus {
   }
   
   .loader-text {
-    margin-top: 20px; /* Ruimte tussen het ijsje en de tekst */
+    margin-top: 20px; 
     font-family: 'Poppins', sans-serif;
     font-weight: 600;
     font-size: 18px;
     color: #d36b8c;
     animation: blink 1.5s infinite;
-    text-align: center; /* Zorg ervoor dat de tekst gecentreerd is */
-    width: 100%; /* Zorg ervoor dat de tekst zich uitlijnt over de volledige breedte */
+    text-align: center; 
+    width: 100%; 
 }
   
   @keyframes blink {
@@ -238,51 +238,51 @@ input:focus, textarea:focus, select:focus {
     50% { opacity: 0.4; }
   }
 
-/* Voor kleine schermen (mobiel) */
+
 @media (max-width: 768px) {
   #controls {
-    width: 90%; /* Maak de controls breder */
-    padding: 1em; /* Verminder de padding */
-    margin: 0 auto; /* Centreer de controls */
-    transform: translate(0%, 0%); /* Verwijder eventuele offset */
-    max-height: 80vh; /* Beperk de hoogte tot 80% van het scherm */
-    overflow-y: auto; /* Sta scrollen toe binnen de controls */
+    width: 90%; 
+    padding: 1em; 
+    margin: 0 auto; 
+    transform: translate(0%, 0%);
+    max-height: 80vh; 
+    overflow-y: auto; 
     display: flex;
-    flex-direction: column; /* Plaats de inhoud onder elkaar */
-    align-items: center; /* Centreer de inhoud horizontaal */
+    flex-direction: column; 
+    align-items: center; 
   }
 
   h1, h3 {
-    font-size: 1.2rem; /* Verklein de kopteksten */
-    text-align: center; /* Centreer de tekst */
+    font-size: 1.2rem; 
+    text-align: center; 
   }
 
   p {
-    font-size: 0.9rem; /* Verklein de paragrafen */
-    margin-top: 0.5em; /* Voeg ruimte toe tussen paragrafen */
-    text-align: center; /* Centreer de tekst */
+    font-size: 0.9rem; 
+    margin-top: 0.5em; 
+    text-align: center;
   }
 
   button {
-    width: 100%; /* Maak knoppen breder op kleine schermen */
-    font-size: 0.7rem; /* Verklein de tekstgrootte */
-    margin-bottom: 10px; /* Voeg ruimte toe tussen knoppen */
+    width: 100%; 
+    font-size: 0.7rem; 
+    margin-bottom: 10px; 
   }
 
   select, input, textarea {
-    font-size: 0.8rem; /* Verklein de tekstgrootte */
-    padding: 5px; /* Verminder de padding */
-    width: 100%; /* Maak invoervelden breder */
-    margin-bottom: 10px; /* Voeg ruimte toe tussen invoervelden */
+    font-size: 0.8rem; 
+    padding: 5px; 
+    width: 100%; 
+    margin-bottom: 10px; 
   }
 
   .loader-text {
-    font-size: 0.9rem; /* Verklein de tekstgrootte van de loader */
-    text-align: center; /* Centreer de tekst */
+    font-size: 0.9rem; 
+    text-align: center; 
   }
 
   .icecream-loader {
-    width: 50px; /* Verklein de loader */
+    width: 50px; 
     height: 100px;
   }
 
@@ -305,51 +305,51 @@ input:focus, textarea:focus, select:focus {
   }
 }
 
-/* Voor middelgrote schermen (tablet) */
+
 @media (max-width: 1024px) {
   #controls {
-    width: 25%; /* Maak de controls breder dan op mobiel */
-    padding: 2em; /* Verminder de padding */
-    margin: 0 auto; /* Centreer de controls */
-    transform: translate(0%, 5%); /* Pas de offset aan */
-    max-height: 85vh; /* Beperk de hoogte tot 85% van het scherm */
-    overflow-y: auto; /* Sta scrollen toe binnen de controls */
+    width: 25%; 
+    padding: 2em;
+    margin: 0 auto;
+    transform: translate(0%, 5%); 
+    max-height: 85vh; 
+    overflow-y: auto;
     display: flex;
-    flex-direction: column; /* Plaats de inhoud onder elkaar */
-    align-items: center; /* Centreer de inhoud horizontaal */
+    flex-direction: column; 
+    align-items: center; 
   }
 
   h1, h3 {
-    font-size: 1.5rem; /* Pas de kopteksten aan */
-    text-align: center; /* Centreer de tekst */
+    font-size: 1.5rem; 
+    text-align: center; 
   }
 
   p {
-    font-size: 1rem; /* Pas de paragrafen aan */
-    margin-top: 0.5em; /* Voeg ruimte toe tussen paragrafen */
-    text-align: center; /* Centreer de tekst */
+    font-size: 1rem; 
+    margin-top: 0.5em; 
+    text-align: center; 
   }
 
   button {
-    width: 80%; /* Maak knoppen breder op middelgrote schermen */
-    font-size: 0.8rem; /* Pas de tekstgrootte aan */
-    margin-bottom: 15px; /* Voeg ruimte toe tussen knoppen */
+    width: 80%; 
+    font-size: 0.8rem; 
+    margin-bottom: 15px; 
   }
 
   select, input, textarea {
-    font-size: 0.9rem; /* Pas de tekstgrootte aan */
-    padding: 6px; /* Pas de padding aan */
-    width: 80%; /* Maak invoervelden breder */
-    margin-bottom: 15px; /* Voeg ruimte toe tussen invoervelden */
+    font-size: 0.9rem; 
+    padding: 6px; 
+    width: 80%; 
+    margin-bottom: 15px; 
   }
 
   .loader-text {
-    font-size: 1rem; /* Pas de tekstgrootte van de loader aan */
-    text-align: center; /* Centreer de tekst */
+    font-size: 1rem; 
+    text-align: center; 
   }
 
   .icecream-loader {
-    width: 60px; /* Pas de grootte van de loader aan */
+    width: 60px;
     height: 120px;
   }
 
@@ -372,16 +372,16 @@ input:focus, textarea:focus, select:focus {
   }
 }
 
-/* Voor 720p schermen */
+
 @media (max-width: 1400px) and (max-height: 720px) {
   #controls {
-    margin-top: -7%; /* Gebruik een negatieve margin-top voor 720p schermen */
+    margin-top: -7%; 
   }
 }
 
-/* Voor hogere resoluties */
+
 @media (min-width: 1500px) {
   #controls {
-    margin-top: 0; /* Geen negatieve margin-top voor hogere resoluties */
+    margin-top: 0; 
   }
 }
